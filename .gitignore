@@ -1,0 +1,13 @@
+node_modules/
+.env
+*.log
+.DS_Store
+Thumbs.db
+
+# Archivos generados en proyectos destino (no en este repo)
+# AGENTS.md
+# CLAUDE.md
+# GEMINI.md
+# .claude/
+# .codex/
+# .cursor/

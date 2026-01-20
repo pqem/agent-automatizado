@@ -1,0 +1,40 @@
+{
+  "name": "agent-automatizado",
+  "version": "1.0.0",
+  "description": "Sistema portable y automatizado para generar entornos de trabajo con agentes IA, skills y MCP servers",
+  "type": "module",
+  "main": "src/cli.js",
+  "bin": {
+    "agent-auto": "./src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "new": "node src/cli.js new",
+    "init": "node src/cli.js init",
+    "dev": "node --watch src/cli.js"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "mcp",
+    "skills",
+    "automation",
+    "cli"
+  ],
+  "author": "Pablo",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "ink": "^5.0.1",
+    "ink-select-input": "^6.0.0",
+    "ink-text-input": "^6.0.0",
+    "react": "^18.3.1",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-react": "^7.24.0",
+    "@babel/register": "^7.24.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

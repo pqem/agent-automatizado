@@ -1,0 +1,7 @@
+{
+  "author": "Pablo",
+  "defaultLevel": "intermediate",
+  "defaultIDEs": ["claude", "copilot", "codex"],
+  "autoSync": true,
+  "language": "es"
+}
