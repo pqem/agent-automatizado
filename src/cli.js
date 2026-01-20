@@ -69,12 +69,17 @@ program
 program
   .command('sync')
   .description('Sincronizar configuración a todos los IDEs soportados')
-  .action(async () => {
+  .option('-s, --symlinks', 'Usar symlinks en vez de copiar')
+  .option('-o, --only <ides>', 'Solo sincronizar a estos IDEs (claude,copilot,codex,gemini,cursor,warp)')
+  .action(async (options) => {
     const { syncToAllIDEs } = await import('../lib/syncer.js');
     
     console.log('🔄 Sincronizando a IDEs...\n');
-    await syncToAllIDEs(process.cwd());
-    console.log('✅ Sincronización completada!');
+    await syncToAllIDEs(process.cwd(), {
+      useSymlinks: options.symlinks,
+      only: options.only ? options.only.split(',') : null,
+    });
+    console.log('\n✅ Sincronización completada!');
   });
 
 // Comando: add-skill - Agregar skill al proyecto
@@ -87,6 +92,91 @@ program
     console.log(`📥 Agregando skill: ${name}...\n`);
     await addSkill(process.cwd(), name);
     console.log(`✅ Skill "${name}" agregada!`);
+  });
+
+// Comando: config - Ver/editar configuración
+program
+  .command('config')
+  .description('Ver o editar configuración')
+  .option('-l, --list', 'Listar configuración actual')
+  .option('-s, --set <key=value>', 'Establecer valor de configuración')
+  .option('--ides', 'Listar IDEs soportados')
+  .action(async (options) => {
+    const { readFileSync, writeFileSync, existsSync } = await import('fs');
+    const { join } = await import('path');
+    const { homedir } = await import('os');
+    
+    const configPath = join(homedir(), '.agent-auto', 'config', 'settings.json');
+    const defaultConfig = join(process.cwd(), 'config', 'settings.json');
+    
+    // Usar config de usuario si existe, sino la por defecto
+    const configFile = existsSync(configPath) ? configPath : defaultConfig;
+    
+    if (options.ides) {
+      const { getSupportedIDEs } = await import('../lib/syncer.js');
+      console.log('🖥️  IDEs soportados:');
+      getSupportedIDEs().forEach(ide => console.log(`   • ${ide}`));
+      return;
+    }
+    
+    if (!existsSync(configFile)) {
+      console.log('⚠️  No se encontró archivo de configuración.');
+      return;
+    }
+    
+    const config = JSON.parse(readFileSync(configFile, 'utf8'));
+    
+    if (options.set) {
+      const [key, value] = options.set.split('=');
+      if (!key || value === undefined) {
+        console.log('⚠️  Formato: --set key=value');
+        return;
+      }
+      config[key] = value;
+      writeFileSync(configFile, JSON.stringify(config, null, 2));
+      console.log(`✅ ${key} = ${value}`);
+      return;
+    }
+    
+    // Por defecto: listar config
+    console.log('⚙️  Configuración actual:\n');
+    for (const [key, value] of Object.entries(config)) {
+      console.log(`   ${key}: ${JSON.stringify(value)}`);
+    }
+  });
+
+// Comando: list-skills - Listar skills disponibles
+program
+  .command('list-skills')
+  .description('Listar skills disponibles')
+  .action(async () => {
+    const { readdirSync, existsSync } = await import('fs');
+    const { join, dirname } = await import('path');
+    const { fileURLToPath } = await import('url');
+    
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    const templatesDir = join(__dirname, '..', 'templates', 'skills');
+    
+    console.log('📚 Skills disponibles:\n');
+    
+    // Genéricos
+    const genericDir = join(templatesDir, 'generic');
+    if (existsSync(genericDir)) {
+      console.log('  Genéricos:');
+      readdirSync(genericDir).forEach(skill => {
+        console.log(`    • ${skill}`);
+      });
+    }
+    
+    // Tech
+    const techDir = join(templatesDir, 'tech');
+    if (existsSync(techDir)) {
+      console.log('\n  Tecnologías:');
+      readdirSync(techDir).forEach(skill => {
+        console.log(`    • ${skill}`);
+      });
+    }
   });
 
 program.parse();
