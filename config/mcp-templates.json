@@ -1,0 +1,126 @@
+{
+  "servers": {
+    "filesystem": {
+      "description": "Acceso al sistema de archivos local",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "category": "core",
+      "recommended": true
+    },
+    "fetch": {
+      "description": "Obtener contenido de URLs",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"],
+      "category": "core",
+      "recommended": true
+    },
+    "context7": {
+      "description": "Documentación actualizada de frameworks y librerías",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "category": "docs",
+      "recommended": true,
+      "tags": ["react", "nextjs", "typescript", "node"]
+    },
+    "git": {
+      "description": "Operaciones Git avanzadas",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git"],
+      "category": "vcs",
+      "recommended": false
+    },
+    "github": {
+      "description": "Integración con GitHub API",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "category": "vcs",
+      "env": {
+        "GITHUB_TOKEN": "{{GITHUB_TOKEN}}"
+      }
+    },
+    "postgres": {
+      "description": "Conexión a PostgreSQL",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "category": "database",
+      "env": {
+        "DATABASE_URL": "{{DATABASE_URL}}"
+      },
+      "tags": ["sql", "database"]
+    },
+    "sqlite": {
+      "description": "Base de datos SQLite local",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite", "./data.db"],
+      "category": "database",
+      "tags": ["local", "database"]
+    },
+    "supabase": {
+      "description": "Integración con Supabase",
+      "command": "npx",
+      "args": ["-y", "supabase-mcp-server"],
+      "category": "database",
+      "env": {
+        "SUPABASE_URL": "{{SUPABASE_URL}}",
+        "SUPABASE_KEY": "{{SUPABASE_KEY}}"
+      },
+      "tags": ["cloud", "database"]
+    },
+    "puppeteer": {
+      "description": "Control de navegador con Puppeteer",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "category": "browser",
+      "tags": ["testing", "scraping"]
+    },
+    "playwright": {
+      "description": "Control de navegador con Playwright",
+      "command": "npx",
+      "args": ["-y", "mcp-server-playwright"],
+      "category": "browser",
+      "tags": ["testing", "e2e"]
+    },
+    "memory": {
+      "description": "Memoria persistente entre sesiones",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "category": "core"
+    },
+    "brave-search": {
+      "description": "Búsqueda web con Brave",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "category": "search",
+      "env": {
+        "BRAVE_API_KEY": "{{BRAVE_API_KEY}}"
+      }
+    },
+    "slack": {
+      "description": "Integración con Slack",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "category": "communication",
+      "env": {
+        "SLACK_TOKEN": "{{SLACK_TOKEN}}"
+      }
+    }
+  },
+  "presets": {
+    "minimal": {
+      "description": "Configuración mínima recomendada",
+      "servers": ["filesystem", "fetch"]
+    },
+    "web-dev": {
+      "description": "Desarrollo web frontend",
+      "servers": ["filesystem", "fetch", "context7", "puppeteer"]
+    },
+    "fullstack": {
+      "description": "Desarrollo fullstack",
+      "servers": ["filesystem", "fetch", "context7", "postgres", "github"]
+    },
+    "python": {
+      "description": "Desarrollo Python",
+      "servers": ["filesystem", "fetch", "memory"]
+    }
+  }
+}

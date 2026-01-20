@@ -179,4 +179,136 @@ program
     }
   });
 
+// Comando: mcp - Gestionar MCP servers
+const mcpCommand = program
+  .command('mcp')
+  .description('Gestionar servidores MCP');
+
+mcpCommand
+  .command('list')
+  .description('Listar servidores MCP disponibles')
+  .option('-c, --category <cat>', 'Filtrar por categoría (core, database, browser, vcs, docs)')
+  .action(async (options) => {
+    const { listAvailableMCP } = await import('../lib/mcp-generator.js');
+    const servers = listAvailableMCP();
+    
+    console.log('🔌 Servidores MCP disponibles:\n');
+    
+    const filtered = options.category 
+      ? servers.filter(s => s.category === options.category)
+      : servers;
+    
+    // Agrupar por categoría
+    const byCategory = {};
+    filtered.forEach(s => {
+      if (!byCategory[s.category]) byCategory[s.category] = [];
+      byCategory[s.category].push(s);
+    });
+    
+    for (const [cat, list] of Object.entries(byCategory)) {
+      console.log(`  ${cat.toUpperCase()}:`);
+      list.forEach(s => {
+        const rec = s.recommended ? ' ★' : '';
+        const env = s.requiresEnv ? ' (requiere env)' : '';
+        console.log(`    • ${s.name}${rec}${env}`);
+        console.log(`      ${s.description}`);
+      });
+      console.log();
+    }
+  });
+
+mcpCommand
+  .command('presets')
+  .description('Listar presets de MCP disponibles')
+  .action(async () => {
+    const { listPresets } = await import('../lib/mcp-generator.js');
+    const presets = listPresets();
+    
+    console.log('📦 Presets MCP disponibles:\n');
+    presets.forEach(p => {
+      console.log(`  ${p.name}:`);
+      console.log(`    ${p.description}`);
+      console.log(`    Servers: ${p.servers.join(', ')}\n`);
+    });
+  });
+
+mcpCommand
+  .command('setup')
+  .description('Configurar MCP servers para el proyecto')
+  .option('-p, --preset <name>', 'Usar un preset (minimal, web-dev, fullstack, python)')
+  .option('-s, --servers <list>', 'Servidores a instalar (separados por coma)')
+  .option('--auto', 'Auto-detectar servidores recomendados')
+  .action(async (options) => {
+    const { setupMCP, detectRecommendedMCP } = await import('../lib/mcp-generator.js');
+    const { detectProject } = await import('../lib/detector.js');
+    
+    let servers = options.servers ? options.servers.split(',') : [];
+    
+    if (options.auto) {
+      console.log('🔍 Auto-detectando MCP recomendados...\n');
+      const projectInfo = await detectProject(process.cwd());
+      servers = detectRecommendedMCP(projectInfo);
+    }
+    
+    console.log('🔧 Configurando MCP servers...\n');
+    
+    const result = setupMCP(process.cwd(), {
+      servers,
+      preset: options.preset,
+    });
+    
+    console.log(`✅ MCP configurado!\n`);
+    console.log('Servidores instalados:');
+    result.servers.forEach(s => console.log(`  • ${s}`));
+    console.log('\nArchivos creados:');
+    result.files.forEach(f => console.log(`  • ${f}`));
+  });
+
+mcpCommand
+  .command('add <server>')
+  .description('Agregar un servidor MCP al proyecto')
+  .action(async (server) => {
+    const { existsSync, readFileSync, writeFileSync } = await import('fs');
+    const { join } = await import('path');
+    const { listAvailableMCP } = await import('../lib/mcp-generator.js');
+    
+    // Verificar que el servidor existe
+    const available = listAvailableMCP();
+    const serverInfo = available.find(s => s.name === server);
+    
+    if (!serverInfo) {
+      console.log(`⚠️  Servidor "${server}" no encontrado.`);
+      console.log('Usa "agent-auto mcp list" para ver disponibles.');
+      return;
+    }
+    
+    // Leer config existente o crear nueva
+    const mcpPath = join(process.cwd(), '.vscode', 'mcp.json');
+    let config = { mcpServers: {} };
+    
+    if (existsSync(mcpPath)) {
+      config = JSON.parse(readFileSync(mcpPath, 'utf8'));
+    }
+    
+    // Agregar servidor
+    const templates = JSON.parse(readFileSync(
+      join(process.cwd(), 'config', 'mcp-templates.json'), 'utf8'
+    ));
+    const serverTemplate = templates.servers[server];
+    
+    config.mcpServers[server] = {
+      command: serverTemplate.command,
+      args: serverTemplate.args,
+      ...(serverTemplate.env && { env: serverTemplate.env }),
+    };
+    
+    writeFileSync(mcpPath, JSON.stringify(config, null, 2));
+    console.log(`✅ Servidor "${server}" agregado a .vscode/mcp.json`);
+    
+    if (serverInfo.requiresEnv) {
+      console.log(`\n⚠️  Este servidor requiere variables de entorno.`);
+      console.log('Edita .vscode/mcp.json y reemplaza los placeholders {{VAR}}.');
+    }
+  });
+
 program.parse();
