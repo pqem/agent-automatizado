@@ -2,7 +2,8 @@
 name: commits
 description: Formato de commits convencionales. Usa cuando hagas commits o prepares cambios para commit.
 scope: root
-tools: [bash]
+metadata.auto_invoke: ["commits", "git commit", "mensaje de commit"]
+allowed_tools: [bash]
 ---
 
 # Commits Convencionales

@@ -2,7 +2,8 @@
 name: testing
 description: Escribir tests. Usa cuando crees tests unitarios, de integración, o necesites patrones de testing.
 scope: root
-tools: [read, write, bash]
+metadata.auto_invoke: ["tests", "testing", "test runner"]
+allowed_tools: [read, write, bash]
 ---
 
 # Testing

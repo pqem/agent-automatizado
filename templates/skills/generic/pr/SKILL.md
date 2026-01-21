@@ -2,7 +2,8 @@
 name: pr
 description: Crear Pull Requests con formato consistente. Usa cuando prepares un PR.
 scope: root
-tools: [bash, read]
+metadata.auto_invoke: ["pull request", "PR", "gh pr create"]
+allowed_tools: [bash, read]
 ---
 
 # Pull Requests

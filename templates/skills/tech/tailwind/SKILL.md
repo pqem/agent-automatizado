@@ -2,7 +2,8 @@
 name: tailwind
 description: Estilos con Tailwind CSS. Usa cuando escribas clases de Tailwind o crees componentes con estilos.
 scope: ui
-tools: [read, write]
+metadata.auto_invoke: ["tailwind", "clases", "estilos"]
+allowed_tools: [read, write]
 ---
 
 # Tailwind CSS

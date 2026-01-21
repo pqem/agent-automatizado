@@ -2,7 +2,8 @@
 name: nextjs
 description: Desarrollo con Next.js 14+. Usa cuando trabajes con App Router, Server Components, o rutas API.
 scope: ui
-tools: [read, write, bash]
+metadata.auto_invoke: ["next.js", "app router", "rutas"]
+allowed_tools: [read, write, bash]
 ---
 
 # Next.js (App Router)

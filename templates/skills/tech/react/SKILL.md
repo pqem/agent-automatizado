@@ -2,7 +2,8 @@
 name: react
 description: Desarrollo con React. Usa cuando crees componentes, hooks, o trabajes con estado/efectos.
 scope: ui
-tools: [read, write]
+metadata.auto_invoke: ["React", "componentes", "hooks"]
+allowed_tools: [read, write]
 ---
 
 # React

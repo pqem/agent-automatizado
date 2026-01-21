@@ -2,7 +2,8 @@
 name: python
 description: Desarrollo con Python. Usa cuando escribas código Python, scripts, o APIs.
 scope: root
-tools: [read, write, bash]
+metadata.auto_invoke: ["python", "scripts", "APIs"]
+allowed_tools: [read, write, bash]
 ---
 
 # Python

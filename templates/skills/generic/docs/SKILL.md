@@ -2,7 +2,8 @@
 name: docs
 description: Crear y mantener documentación. Usa cuando escribas README, docs, o comentarios.
 scope: root
-tools: [read, write]
+metadata.auto_invoke: ["documentación", "README", "docs"]
+allowed_tools: [read, write]
 ---
 
 # Documentación

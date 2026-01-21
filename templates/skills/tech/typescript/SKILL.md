@@ -2,7 +2,8 @@
 name: typescript
 description: Desarrollo con TypeScript. Usa cuando definas tipos, interfaces, o necesites tipado estricto.
 scope: root
-tools: [read, write]
+metadata.auto_invoke: ["TypeScript", "tipos", "interfaces"]
+allowed_tools: [read, write]
 ---
 
 # TypeScript

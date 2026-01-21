@@ -82,6 +82,17 @@ program
     console.log('\n✅ Sincronización completada!');
   });
 
+// Comando: skill-sync - Regenerar Skills Reference y Auto-invoke
+program
+  .command('skill-sync')
+  .description('Regenerar bloques de skills en AGENTS.md')
+  .action(async () => {
+    const { syncSkills } = await import('../lib/skill-syncer.js');
+
+    console.log('🧩 Regenerando skills en AGENTS.md...\n');
+    await syncSkills(process.cwd());
+  });
+
 // Comando: add-skill - Agregar skill al proyecto
 program
   .command('add-skill <name>')

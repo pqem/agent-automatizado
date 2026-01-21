@@ -2,7 +2,8 @@
 name: skill-creator
 description: Crear nuevas skills. Usa cuando necesites crear una skill personalizada para el proyecto.
 scope: root
-tools: [read, write]
+metadata.auto_invoke: ["crear skill", "nueva skill", "skill personalizada"]
+allowed_tools: [read, write]
 ---
 
 # Crear Nueva Skill
@@ -25,7 +26,8 @@ skills/
 name: nombre-skill
 description: Descripción breve. Incluir triggers: "Usa cuando X, Y, Z"
 scope: root|ui|api|sdk
-tools: [read, write, bash]
+metadata.auto_invoke: ["trigger 1", "trigger 2"]
+allowed_tools: [read, write, bash]
 ---
 
 # Nombre de la Skill
@@ -52,7 +54,8 @@ tools: [read, write, bash]
 | name | Sí | Identificador único (kebab-case) |
 | description | Sí | Descripción con triggers para auto-invocación |
 | scope | No | Dónde aplica: root, ui, api, sdk |
-| tools | No | Herramientas permitidas: read, write, bash |
+| metadata.auto_invoke | Sí | Triggers explícitos para auto-invocar la skill |
+| allowed_tools | No | Herramientas permitidas: read, write, bash |
 
 ## Buenas Prácticas
 
@@ -68,7 +71,8 @@ tools: [read, write, bash]
 name: rest-api
 description: Diseñar APIs REST. Usa cuando crees endpoints, definas rutas, o trabajes con HTTP.
 scope: api
-tools: [read, write]
+metadata.auto_invoke: ["API REST", "endpoints", "rutas"]
+allowed_tools: [read, write]
 ---
 
 # API REST
