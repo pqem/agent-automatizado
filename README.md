@@ -6,14 +6,16 @@ Sistema CLI para generar y sincronizar contratos de agentes (AGENTS.md) y skills
 
 ```bash
 npm install
-node src/cli.js init
-node src/cli.js skill-sync
+node src/cli.js init       # Genera AGENTS.md + skills
+node src/cli.js skill-sync # Sincroniza bloques
+./scripts/setup.sh --all   # Sincroniza a IDEs (Claude, Cursor, etc.)
 ```
 
 ## Comandos principales
 
 - `init`: detecta el proyecto y genera AGENTS.md + skills iniciales.
 - `skill-sync`: regenera los bloques de Skills Reference y Auto-invoke Skills.
+- `scripts/setup.sh`: sincroniza skills a múltiples IDEs (Claude, Cursor, Copilot, etc.).
 
 ## Qué hace skill-sync
 
@@ -46,6 +48,28 @@ node src/cli.js skill-sync
 - No determinismo: verificar orden de archivos y que no haya cambios fuera de los markers.
 - Markers faltan: agregar `<!-- SKILL-SYNC:START -->` y `<!-- SKILL-SYNC:END -->` manualmente.
 - Scopes raros: revisar `scope` en frontmatter y el nombre de la carpeta del componente.
+
+## Sincronización multi-IDE
+
+El script `setup.sh` sincroniza automáticamente tus skills a:
+- Claude (Desktop/Code)
+- GitHub Copilot
+- Cursor
+- Gemini CLI
+- Codex (OpenAI)
+- Warp Terminal
+
+```bash
+# Sincronizar a todos
+./scripts/setup.sh --all
+
+# Solo algunos
+./scripts/setup.sh --claude --cursor
+
+# Resultado: symlinks a skills/ + copia de AGENTS.md
+```
+
+Ver documentación completa en `scripts/README.md`.
 
 ## Caso de uso real: Dog-fooding
 
