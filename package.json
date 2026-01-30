@@ -16,7 +16,11 @@
     "test:setup": "bash scripts/test-setup.sh",
     "update:context": "node scripts/update-context-recovery.cjs",
     "review:five": "node scripts/rule-of-five.cjs",
-    "clean:context": "node scripts/new-conversation.cjs"
+    "clean:context": "node scripts/new-conversation.cjs",
+    "tokens:report": "node scripts/token-metrics.cjs report",
+    "tokens:track": "node scripts/token-metrics.cjs track",
+    "tokens:reset": "node scripts/token-metrics.cjs reset",
+    "tokens:budget": "node scripts/token-metrics.cjs budget"
   },
   "keywords": [
     "ai",
