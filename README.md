@@ -40,6 +40,7 @@ Los agentes IA necesitan:
 - [Skills Disponibles](#-skills-disponibles)
 - [Templates](#-templates)
 - [Monorepo Support](#-monorepo-support)
+- [Context Recovery](#-context-recovery)
 - [Dog-fooding](#-dog-fooding)
 - [Documentación](#-documentación)
 - [Troubleshooting](#-troubleshooting)
@@ -213,7 +214,7 @@ Ver documentación completa: [`scripts/README.md`](scripts/README.md)
 
 ## 📦 Skills Disponibles
 
-14 skills pre-built listas para usar:
+15 skills pre-built listas para usar:
 
 | Skill | Descripción | Triggers (ejemplos) |
 |-------|-------------|---------------------|
@@ -231,8 +232,9 @@ Ver documentación completa: [`scripts/README.md`](scripts/README.md)
 | **design** | UI/UX + component architecture | diseño UI/UX, componentes, layout |
 | **git-workflow** | Git/GitHub diario | git, branch, merge, rebase, conflicto |
 | **agent-skills** | Workflow agent-automatizado | skills, skill-sync, auto-invoke |
+| **context-recovery** | Recuperación post-compactación | perdió memoria, contexto perdido, summary unavailable |
 
-**Total:** 57+ triggers automáticos
+**Total:** 62+ triggers automáticos
 
 ## 📄 Templates
 
@@ -280,6 +282,47 @@ node src/cli.js skill-sync
 # packages/ui/AGENTS.md
 # services/api/AGENTS.md
 ```
+
+## 🔄 Context Recovery
+
+**Problema:** Cuando el LLM compacta su historial, pierde contexto sobre qué estabas trabajando.
+
+**Solución:** `CONTEXT-RECOVERY.md` — snapshot actualizado automáticamente del estado del workspace.
+
+### Qué contiene
+
+- 🎯 Proyecto activo actual
+- 📦 Estado del repositorio (branch, commits pendientes, último commit)
+- ✅ Última tarea completada
+- 🔜 Próximo paso sugerido
+- 📝 Decisiones recientes
+- 🐛 Issues conocidos
+
+### Uso
+
+**Generar/actualizar snapshot:**
+```bash
+node scripts/update-context-recovery.cjs
+```
+
+**Al detectar compactación:**
+```
+Usuario: "qué estábamos haciendo?"
+Agente: [Lee CONTEXT-RECOVERY.md automáticamente]
+        
+📦 Proyecto: agent-automatizado
+✅ Última tarea: Documentación completa
+🔜 Próximo: git push (11 commits pendientes)
+```
+
+### Cuándo actualizar
+
+- ✅ Al completar tarea importante
+- ✅ Después de commits significativos
+- ✅ Al final de sesión larga
+- ❌ No en cada mensaje (overhead innecesario)
+
+Ver skill completa: [`skills/context-recovery/SKILL.md`](skills/context-recovery/SKILL.md)
 
 ## 🐕 Dog-fooding
 

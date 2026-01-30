@@ -13,7 +13,8 @@
     "init": "node src/cli.js init",
     "dev": "node --watch src/cli.js",
     "validate:skills": "node scripts/validate-skills.js",
-    "test:setup": "bash scripts/test-setup.sh"
+    "test:setup": "bash scripts/test-setup.sh",
+    "update:context": "node scripts/update-context-recovery.cjs"
   },
   "keywords": [
     "ai",

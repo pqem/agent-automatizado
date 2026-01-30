@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- ✨ **Context Recovery System** - Recuperación automática post-compactación
+  - Skill `context-recovery` con guía completa
+  - Script `update-context-recovery.cjs` que genera snapshot del workspace
+  - `CONTEXT-RECOVERY.md` con estado actual del proyecto
+  - Template de referencia
+  - 5+ triggers: "perdió memoria", "contexto perdido", "summary unavailable"
 - Documentación completa del proyecto (README mejorado, CHANGELOG, CONTRIBUTING)
 
 ## [1.0.0] - 2026-01-30
