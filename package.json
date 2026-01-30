@@ -15,7 +15,8 @@
     "validate:skills": "node scripts/validate-skills.js",
     "test:setup": "bash scripts/test-setup.sh",
     "update:context": "node scripts/update-context-recovery.cjs",
-    "review:five": "node scripts/rule-of-five.cjs"
+    "review:five": "node scripts/rule-of-five.cjs",
+    "clean:context": "node scripts/new-conversation.cjs"
   },
   "keywords": [
     "ai",
