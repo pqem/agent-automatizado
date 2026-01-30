@@ -23,7 +23,7 @@ Los agentes IA necesitan:
 
 - 🔍 **Detección automática** de tipo de proyecto (Next.js, API, Python, AI Agent, etc.)
 - 📦 **Templates específicos** según stack detectado (6 templates disponibles)
-- 🎯 **14 skills pre-built** (commits, testing, security, performance, deployment, etc.)
+- 🎯 **16 skills pre-built** (commits, testing, security, resonant-coding, context-recovery, etc.)
 - 🔄 **Sincronización idempotente** (skill-sync no genera diffs innecesarios)
 - 🎨 **CLI interactivo** para crear nuevas skills
 - ✅ **Validación automática** de frontmatter y estructura
@@ -41,6 +41,7 @@ Los agentes IA necesitan:
 - [Templates](#-templates)
 - [Monorepo Support](#-monorepo-support)
 - [Context Recovery](#-context-recovery)
+- [Resonant Coding Tools](#-resonant-coding-tools)
 - [Dog-fooding](#-dog-fooding)
 - [Documentación](#-documentación)
 - [Troubleshooting](#-troubleshooting)
@@ -214,7 +215,7 @@ Ver documentación completa: [`scripts/README.md`](scripts/README.md)
 
 ## 📦 Skills Disponibles
 
-15 skills pre-built listas para usar:
+16 skills pre-built listas para usar:
 
 | Skill | Descripción | Triggers (ejemplos) |
 |-------|-------------|---------------------|
@@ -233,8 +234,9 @@ Ver documentación completa: [`scripts/README.md`](scripts/README.md)
 | **git-workflow** | Git/GitHub diario | git, branch, merge, rebase, conflicto |
 | **agent-skills** | Workflow agent-automatizado | skills, skill-sync, auto-invoke |
 | **context-recovery** | Recuperación post-compactación | perdió memoria, contexto perdido, summary unavailable |
+| **resonant-coding** | Metodología completa Resonant Coding | resonant, regla de los 5, baldes limpios, revisar |
 
-**Total:** 62+ triggers automáticos
+**Total:** 70+ triggers automáticos
 
 ## 📄 Templates
 
@@ -323,6 +325,164 @@ Agente: [Lee CONTEXT-RECOVERY.md automáticamente]
 - ❌ No en cada mensaje (overhead innecesario)
 
 Ver skill completa: [`skills/context-recovery/SKILL.md`](skills/context-recovery/SKILL.md)
+
+## 🎨 Resonant Coding Tools
+
+Herramientas para trabajar efectivamente con LLMs siguiendo metodología Resonant Coding.
+
+### 1. Skill de Resonant Coding
+
+**Qué es:** Metodología completa para evitar el caos al trabajar con IA.
+
+**Conceptos clave:**
+- 📏 **Regla de los 5:** 5 filtros de revisión (Borrador → Corrección → Claridad → Casos Límite → Excelencia)
+- 🪣 **Baldes limpios:** Conversaciones enfocadas, contexto relevante
+- 👥 **Tres expertos:** Investigación → Planificación → Ejecución
+
+```bash
+# Auto-invocada con triggers:
+# "resonant", "regla de los 5", "revisar", "refinar", "mejorar calidad"
+```
+
+Ver: [`skills/resonant-coding/SKILL.md`](skills/resonant-coding/SKILL.md)
+
+---
+
+### 2. Script "Regla de los 5"
+
+**Qué es:** Review interactivo con 5 filtros de calidad.
+
+```bash
+npm run review:five archivo.js
+
+# Output interactivo:
+[1/5] 📝 Borrador - ¿Está todo?
+[2/5] 🔍 Corrección - ¿Es correcto?
+[3/5] 💡 Claridad - ¿Se entiende?
+[4/5] ⚠️  Casos Límite - ¿Qué podría fallar?
+[5/5] ✨ Excelencia - ¿Es lo mejor posible?
+
+📊 Resultado: 4/5 filtros pasados
+📈 Issues: 3 detectados
+💡 Recomendaciones: ...
+```
+
+**Features:**
+- Análisis automático (console.log, links rotos, líneas largas, etc.)
+- Prompts interactivos por filtro
+- Reporte detallado en Markdown
+- Score final con sugerencias
+
+---
+
+### 3. Templates de "Tres Expertos"
+
+**Qué es:** Templates para dividir proyectos en 3 conversaciones limpias.
+
+```bash
+templates/workflows/
+├── 01-investigacion.md   # El Investigador
+├── 02-planificacion.md   # La Estratega
+└── 03-ejecucion.md       # El Ejecutor
+```
+
+**Workflow:**
+```
+Proyecto: Sistema de Notificaciones
+
+Conversación 1 (Investigación):
+- Evaluar opciones (Firebase vs OneSignal vs Pusher)
+- Recomendación justificada
+- Riesgos identificados
+
+Conversación 2 (Planificación):
+- 6 tareas pequeñas (< 4h cada una)
+- Dependencias claras
+- Estimaciones con buffer
+
+Conversaciones 3-8 (Ejecución):
+- Una conversación por tarea
+- Contexto mínimo
+- Implementar → Validar → Commit
+```
+
+Ver: [`templates/workflows/README.md`](templates/workflows/README.md)
+
+---
+
+### 4. Generador de Contexto Limpio
+
+**Qué es:** Genera snapshot mínimo para nueva conversación (balde limpio).
+
+```bash
+npm run clean:context "implementar cache con Redis"
+
+# Output: conversation-123456.md
+# Contenido:
+# - Contexto relevante SOLO para cache
+# - Archivos detectados automáticamente
+# - Estado git actual
+# - Instrucciones claras para IA
+```
+
+**Cuándo usar:**
+- Antes de cada tarea nueva
+- Al detectar conversación larga (> 20 mensajes)
+- Cuando el IA "se pierde"
+
+**Beneficio:** Reduce tokens ~30-50% vs conversación larga
+
+---
+
+### 5. Métricas de Tokens
+
+**Qué es:** Tracking de uso y optimización de costos.
+
+```bash
+npm run tokens:report
+
+# Output:
+📊 Token Usage Report
+💰 Costo total: $2.15
+🎯 Presupuesto: $50.00
+📈 Uso: 4.3%
+
+🔝 Top operaciones:
+1. Investigación arquitectura ($0.89, 15K tokens)
+2. Code review ($0.67, 11K tokens)
+
+💡 Recomendaciones:
+- Usar conversaciones limpias (ahorro: ~$0.50)
+- Crear skill para code review (ahorro: ~30%)
+```
+
+**Features:**
+- Tracking manual o automático
+- 8 modelos soportados con precios
+- Detección de patrones ineficientes:
+  * Conversaciones muy largas
+  * Operaciones repetitivas
+  * Uso de modelos caros
+- Proyección fin de mes
+- Warnings automáticos
+
+Ver: [`docs/TOKEN-METRICS.md`](docs/TOKEN-METRICS.md)
+
+---
+
+### Filosofía
+
+Estas herramientas implementan **Resonant Coding:**
+
+| Problema | Solución | Herramienta |
+|----------|----------|-------------|
+| Código de baja calidad | 5 filtros de revisión | `review:five` |
+| Conversaciones largas y sucias | Baldes limpios | `clean:context` |
+| Proyectos complejos caóticos | Tres expertos | Templates workflow |
+| Gasto descontrolado de tokens | Tracking y optimización | `tokens:report` |
+| Falta de metodología | Guía completa | Skill resonant-coding |
+
+**Resultado:** Trabajo con IA que es realmente más rápido Y de mejor calidad.
 
 ## 🐕 Dog-fooding
 
