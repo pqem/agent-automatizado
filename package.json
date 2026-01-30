@@ -11,7 +11,9 @@
     "start": "node src/cli.js",
     "new": "node src/cli.js new",
     "init": "node src/cli.js init",
-    "dev": "node --watch src/cli.js"
+    "dev": "node --watch src/cli.js",
+    "validate:skills": "node scripts/validate-skills.js",
+    "test:setup": "bash scripts/test-setup.sh"
   },
   "keywords": [
     "ai",
