@@ -14,8 +14,10 @@ node src/cli.js skill-sync # Sincroniza bloques
 ## Comandos principales
 
 - `init`: detecta el proyecto y genera AGENTS.md + skills iniciales.
+- `add-skill`: crea una nueva skill (interactivo o con flags).
 - `skill-sync`: regenera los bloques de Skills Reference y Auto-invoke Skills.
 - `scripts/setup.sh`: sincroniza skills a múltiples IDEs (Claude, Cursor, Copilot, etc.).
+- `scripts/validate-skills.js`: valida estructura y frontmatter de skills.
 
 ## Qué hace skill-sync
 

@@ -95,14 +95,37 @@ program
 
 // Comando: add-skill - Agregar skill al proyecto
 program
-  .command('add-skill <name>')
-  .description('Agregar una skill al proyecto')
-  .action(async (name) => {
-    const { addSkill } = await import('../lib/generator.js');
+  .command('add-skill [name]')
+  .description('Agregar una skill al proyecto (interactivo si no se pasa nombre)')
+  .option('-d, --description <desc>', 'Descripción de la skill')
+  .option('-s, --scope <scope>', 'Scope (root, global, o custom)', 'root')
+  .option('-t, --tools <tools>', 'Herramientas permitidas (comma-separated)', 'read,write')
+  .option('-f, --force', 'Sobrescribir si existe')
+  .action(async (name, options) => {
+    const { createSkillInteractive, createSkillNonInteractive } = await import('../lib/skill-creator.js');
     
-    console.log(`📥 Agregando skill: ${name}...\n`);
-    await addSkill(process.cwd(), name);
-    console.log(`✅ Skill "${name}" agregada!`);
+    try {
+      let skillPath;
+      
+      if (!name) {
+        // Modo interactivo
+        skillPath = await createSkillInteractive(process.cwd());
+      } else {
+        // Modo no interactivo
+        const toolsArray = options.tools.split(',').map(t => t.trim());
+        skillPath = await createSkillNonInteractive(process.cwd(), name, {
+          description: options.description,
+          scope: options.scope,
+          tools: toolsArray,
+          force: options.force,
+        });
+        console.log(`✅ Skill creada: ${skillPath}`);
+        console.log('\nEjecutá "node src/cli.js skill-sync" para actualizar AGENTS.md');
+      }
+    } catch (error) {
+      console.error(`❌ Error: ${error.message}`);
+      process.exit(1);
+    }
   });
 
 // Comando: config - Ver/editar configuración
