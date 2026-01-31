@@ -1,52 +1,69 @@
 # GitHub Copilot Instructions
 
-## Project: agent-automatizado
-CLI framework for generating AI agent contracts (AGENTS.md) and modular skills.
+# agent-automatizado
 
-## Tech Stack
-- Node.js 18+ with ES Modules
+Framework CLI para generar contratos de agentes IA (AGENTS.md) y skills modulares en proyectos.
+
+## Stack
+- Node.js 18+ con ES Modules
 - Commander.js (CLI)
-- Ink + React (interactive UI)
-- js-yaml (YAML parsing)
+- Ink + React (UI interactiva)
+- js-yaml (parsing YAML)
+
+## Reglas
+
+### Código
+1. ES Modules: usar `import/export`, nunca `require()`
+2. Async/await preferido sobre callbacks
+3. Funciones pequeñas y bien nombradas
+4. Sin dependencias innecesarias
+
+### Commits
+Formato convencional en español:
+- `feat(scope): nueva funcionalidad`
+- `fix(scope): corrección`
+- `refactor(scope): refactorización`
+- `docs: documentación`
+
+### Prohibido
+- Crear archivos README/docs no solicitados
+- Comentarios obvios
+- Modificar package.json sin justificación
+- Usar require() en lugar de import
+
+## Estructura
+```
+src/cli.js           - Entrada CLI principal
+src/components/      - Componentes Ink/React
+lib/                 - Lógica de negocio
+  ├── detector.js    - Detecta tipo de proyecto
+  ├── generator.js   - Genera AGENTS.md
+  ├── skill-syncer.js - Sincroniza skills
+  └── skill-creator.js - Crea nuevas skills
+scripts/             - Scripts auxiliares (.cjs)
+templates/           - Templates de AGENTS.md y skills
+skills/              - Skills activas del proyecto
+```
+
+## Comandos principales
+```bash
+node src/cli.js init        # Inicializar proyecto
+node src/cli.js skill-sync  # Sincronizar skills
+node src/cli.js add-skill   # Crear skill interactiva
+node src/cli.js detect      # Detectar tipo de proyecto
+npm run validate:skills     # Validar skills
+```
+
+## Skills activas
+- **context-recovery** - Recuperación post-compactación de memoria LLM
+- **resonant-coding** - Metodología de trabajo efectivo con LLMs
+
+## Notas importantes
+- El proyecto usa dog-fooding (se usa a sí mismo)
+- Skills usan frontmatter YAML con campos: name, description, scope, allowed_tools, metadata.auto_invoke
+- Detecta automáticamente: Next.js, API, Python, AI Agent, Generic
 
 ## Code Style
-
-### Language
-- Code comments in Spanish
-- Commit messages in Spanish
-- Variable names in English
-
-### Modules
-- Use `import/export` (ES Modules)
-- Never use `require()`
-- Async/await over callbacks
-
-### File Structure
-```
-src/cli.js        - CLI entry point
-lib/*.js          - Business logic
-scripts/*.cjs     - Auxiliary scripts (CommonJS)
-templates/        - AGENTS.md templates
-skills/           - Active skills
-```
-
-## Commit Format
-```
-feat(scope): description
-fix(scope): description
-refactor(scope): description
-docs: description
-```
-
-## Do NOT
-- Add unnecessary documentation files
-- Add obvious comments
-- Modify package.json without reason
-- Create test files unless requested
-
-## Key Commands
-```bash
-node src/cli.js init        # Initialize project
-node src/cli.js skill-sync  # Sync skills to AGENTS.md
-node src/cli.js add-skill   # Create new skill
-```
+- Follow existing code patterns
+- Use conventional commits
+- Keep code clean and focused

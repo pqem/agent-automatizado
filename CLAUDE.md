@@ -1,63 +1,69 @@
 # Instrucciones para Claude
 
-## Proyecto
-**agent-automatizado** - Framework CLI para generar contratos de agentes IA (AGENTS.md) y skills modulares.
+# agent-automatizado
+
+Framework CLI para generar contratos de agentes IA (AGENTS.md) y skills modulares en proyectos.
 
 ## Stack
 - Node.js 18+ con ES Modules
-- Commander.js para CLI
-- Ink + React para UI interactiva
-- js-yaml para parsing YAML
+- Commander.js (CLI)
+- Ink + React (UI interactiva)
+- js-yaml (parsing YAML)
 
-## Estructura
-```
-src/cli.js           → Entrada principal CLI
-lib/                 → Lógica de negocio
-  ├── detector.js    → Detecta tipo de proyecto
-  ├── generator.js   → Genera AGENTS.md y skills
-  ├── skill-syncer.js → Sincroniza bloques en AGENTS.md
-  └── skill-creator.js → Crea nuevas skills
-scripts/             → Scripts auxiliares (.cjs)
-templates/           → Templates de AGENTS.md
-skills/              → Skills activas (context-recovery, resonant-coding)
-```
-
-## Convenciones
+## Reglas
 
 ### Código
-- ES Modules (`import/export`)
-- Async/await
-- Funciones pequeñas y enfocadas
-- Sin dependencias innecesarias
+1. ES Modules: usar `import/export`, nunca `require()`
+2. Async/await preferido sobre callbacks
+3. Funciones pequeñas y bien nombradas
+4. Sin dependencias innecesarias
 
 ### Commits
 Formato convencional en español:
-```
-feat(cli): agregar comando X
-fix(detector): corregir detección de Y
-refactor(lib): simplificar función Z
-docs: actualizar README
-```
+- `feat(scope): nueva funcionalidad`
+- `fix(scope): corrección`
+- `refactor(scope): refactorización`
+- `docs: documentación`
 
 ### Prohibido
-- Crear archivos de documentación no solicitados
-- Agregar comentarios obvios
-- Modificar package.json sin razón
-- Usar require() (proyecto usa ES Modules)
+- Crear archivos README/docs no solicitados
+- Comentarios obvios
+- Modificar package.json sin justificación
+- Usar require() en lugar de import
 
-## Skills del proyecto
-1. **context-recovery** - Recuperación de contexto post-compactación
-2. **resonant-coding** - Metodología de trabajo con LLMs
+## Estructura
+```
+src/cli.js           - Entrada CLI principal
+src/components/      - Componentes Ink/React
+lib/                 - Lógica de negocio
+  ├── detector.js    - Detecta tipo de proyecto
+  ├── generator.js   - Genera AGENTS.md
+  ├── skill-syncer.js - Sincroniza skills
+  └── skill-creator.js - Crea nuevas skills
+scripts/             - Scripts auxiliares (.cjs)
+templates/           - Templates de AGENTS.md y skills
+skills/              - Skills activas del proyecto
+```
 
 ## Comandos principales
 ```bash
-node src/cli.js init        # Inicializar en proyecto existente
-node src/cli.js skill-sync  # Regenerar bloques de skills
-node src/cli.js add-skill   # Crear skill interactivamente
-node src/cli.js detect      # Ver tipo de proyecto detectado
+node src/cli.js init        # Inicializar proyecto
+node src/cli.js skill-sync  # Sincronizar skills
+node src/cli.js add-skill   # Crear skill interactiva
+node src/cli.js detect      # Detectar tipo de proyecto
+npm run validate:skills     # Validar skills
 ```
 
-## Notas
+## Skills activas
+- **context-recovery** - Recuperación post-compactación de memoria LLM
+- **resonant-coding** - Metodología de trabajo efectivo con LLMs
+
+## Notas importantes
 - El proyecto usa dog-fooding (se usa a sí mismo)
-- Las skills están en `/skills/` con formato SKILL.md y frontmatter YAML
-- El CLI detecta automáticamente: Next.js, API, Python, AI Agent, Generic
+- Skills usan frontmatter YAML con campos: name, description, scope, allowed_tools, metadata.auto_invoke
+- Detecta automáticamente: Next.js, API, Python, AI Agent, Generic
+
+## Convenciones
+- Seguir el estilo existente del código
+- Commits descriptivos en español
+- No agregar comentarios obvios

@@ -1,52 +1,69 @@
 # Reglas para Cursor AI
 
-## Proyecto
-Este es agent-automatizado - Framework CLI para generar contratos de agentes IA y skills modulares.
+# agent-automatizado
+
+Framework CLI para generar contratos de agentes IA (AGENTS.md) y skills modulares en proyectos.
 
 ## Stack
-- Node.js 18+
-- ES Modules (type: module)
+- Node.js 18+ con ES Modules
 - Commander.js (CLI)
 - Ink + React (UI interactiva)
-- js-yaml (parsing)
+- js-yaml (parsing YAML)
 
-## Reglas de código
+## Reglas
 
-### General
-- Código en español (comentarios, commits)
-- ES Modules: usar `import/export`, no `require`
-- Async/await preferido sobre callbacks
-- No agregar dependencias sin justificación
-
-### Archivos
-- `src/` - CLI y componentes UI
-- `lib/` - Lógica de negocio
-- `scripts/` - Scripts auxiliares (.cjs para CommonJS)
-- `templates/` - Templates de AGENTS.md y skills
-- `skills/` - Skills activas del proyecto
+### Código
+1. ES Modules: usar `import/export`, nunca `require()`
+2. Async/await preferido sobre callbacks
+3. Funciones pequeñas y bien nombradas
+4. Sin dependencias innecesarias
 
 ### Commits
 Formato convencional en español:
-- `feat(scope): descripción`
-- `fix(scope): descripción`
-- `refactor(scope): descripción`
-- `docs(scope): descripción`
+- `feat(scope): nueva funcionalidad`
+- `fix(scope): corrección`
+- `refactor(scope): refactorización`
+- `docs: documentación`
 
-### No hacer
-- No crear archivos README innecesarios
-- No agregar comentarios obvios
-- No usar console.log para debug (usar proceso estructurado)
-- No modificar package.json sin razón
+### Prohibido
+- Crear archivos README/docs no solicitados
+- Comentarios obvios
+- Modificar package.json sin justificación
+- Usar require() en lugar de import
 
-## Skills disponibles
-- `context-recovery` - Recuperación post-compactación de memoria
-- `resonant-coding` - Metodología Resonant Coding (Regla de los 5)
-
-## Comandos útiles
-```bash
-node src/cli.js init          # Inicializar proyecto
-node src/cli.js skill-sync    # Sincronizar skills
-node src/cli.js add-skill     # Crear nueva skill
-node src/cli.js detect        # Detectar tipo de proyecto
-npm run validate:skills       # Validar skills
+## Estructura
 ```
+src/cli.js           - Entrada CLI principal
+src/components/      - Componentes Ink/React
+lib/                 - Lógica de negocio
+  ├── detector.js    - Detecta tipo de proyecto
+  ├── generator.js   - Genera AGENTS.md
+  ├── skill-syncer.js - Sincroniza skills
+  └── skill-creator.js - Crea nuevas skills
+scripts/             - Scripts auxiliares (.cjs)
+templates/           - Templates de AGENTS.md y skills
+skills/              - Skills activas del proyecto
+```
+
+## Comandos principales
+```bash
+node src/cli.js init        # Inicializar proyecto
+node src/cli.js skill-sync  # Sincronizar skills
+node src/cli.js add-skill   # Crear skill interactiva
+node src/cli.js detect      # Detectar tipo de proyecto
+npm run validate:skills     # Validar skills
+```
+
+## Skills activas
+- **context-recovery** - Recuperación post-compactación de memoria LLM
+- **resonant-coding** - Metodología de trabajo efectivo con LLMs
+
+## Notas importantes
+- El proyecto usa dog-fooding (se usa a sí mismo)
+- Skills usan frontmatter YAML con campos: name, description, scope, allowed_tools, metadata.auto_invoke
+- Detecta automáticamente: Next.js, API, Python, AI Agent, Generic
+
+## Instrucciones adicionales
+- Código limpio y conciso
+- Commits en formato convencional
+- No crear archivos innecesarios
