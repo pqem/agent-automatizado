@@ -185,33 +185,37 @@ Exit codes: `0` = OK, `1` = errores encontrados (útil en CI/CD)
 
 ## 🔗 Sincronización Multi-IDE
 
-Sincroniza automáticamente tus skills a **6 IDEs diferentes**.
+Genera archivos de configuración para múltiples IDEs desde un único `PROJECT.md`.
 
 ```bash
-# Sincronizar a todos
-./scripts/setup.sh --all
+# Generar configs para todos los IDEs
+./scripts/sync-ide-rules.sh /path/to/tu-proyecto
 
-# Solo algunos
-./scripts/setup.sh --claude --cursor --copilot
-
-# Interactivo (menú)
-./scripts/setup.sh
+# Si no existe PROJECT.md, crea un template automáticamente
 ```
 
-**IDEs soportados:**
-- 🤖 Claude (Desktop/Code) → `~/.claude/skills/`
-- ✨ GitHub Copilot → `~/.github-copilot/skills/`
-- 🔷 Cursor → `~/.cursor/skills/`
-- 🟣 Gemini CLI → `~/.gemini/skills/`
-- 📘 Codex (OpenAI) → `~/.codex/skills/`
-- 🌊 Warp Terminal → `~/.warp/skills/`
+**Archivos generados:**
 
-**Cómo funciona:**
-1. **Symlinks** a `skills/` (single source of truth)
-2. **Copia** `AGENTS.md` a archivo específico del IDE
-3. Cada IDE lee skills desde su ubicación esperada
+| Archivo | IDE |
+|---------|-----|
+| `.cursorrules` | Cursor |
+| `CLAUDE.md` | Claude Desktop/Code |
+| `.github/copilot-instructions.md` | VS Code + GitHub Copilot |
+| `OPENCODE.md` | OpenCode |
 
-Ver documentación completa: [`scripts/README.md`](scripts/README.md)
+**Flujo de trabajo:**
+```
+PROJECT.md (fuente única)
+     │
+     └──→ sync-ide-rules.sh
+              │
+              ├──→ .cursorrules
+              ├──→ CLAUDE.md
+              ├──→ .github/copilot-instructions.md
+              └──→ OPENCODE.md
+```
+
+**Ventaja:** Editas un solo archivo, todos los IDEs se actualizan.
 
 ## 📦 Skills Disponibles
 
