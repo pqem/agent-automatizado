@@ -183,18 +183,55 @@ node scripts/validate-skills.js
 
 Exit codes: `0` = OK, `1` = errores encontrados (útil en CI/CD)
 
+### `sync-ide` - Sincronizar a IDEs
+
+Sincroniza `PROJECT.md` a archivos de configuración de múltiples IDEs.
+
+```bash
+# Sincronizar todos los IDEs
+node src/cli.js sync-ide
+
+# Solo verificar si están sincronizados
+node src/cli.js sync-ide --check
+
+# Preview sin escribir
+node src/cli.js sync-ide --dry-run
+
+# Solo ciertos IDEs
+node src/cli.js sync-ide --only cursor,claude
+
+# Listar IDEs soportados
+node src/cli.js sync-ide --list
+```
+
+**IDEs soportados:** Cursor, Claude, Copilot, OpenCode, Zed, Warp
+
 ## 🔗 Sincronización Multi-IDE
 
 Genera archivos de configuración para múltiples IDEs desde un único `PROJECT.md`.
 
 ```bash
-# Generar configs para todos los IDEs
-./scripts/sync-ide-rules.sh /path/to/tu-proyecto
+# Sincronizar a todos los IDEs
+npm run sync:ide
 
-# Si no existe PROJECT.md, crea un template automáticamente
+# O usando el CLI directamente
+node src/cli.js sync-ide
+
+# Verificar si están sincronizados (útil en CI)
+npm run sync:ide:check
 ```
 
-**Archivos generados:**
+**Opciones disponibles:**
+
+| Opción | Descripción |
+|--------|-------------|
+| `--list` | Listar IDEs soportados |
+| `--check` | Verificar sincronización sin modificar |
+| `--dry-run` | Preview de cambios sin escribir |
+| `--only <ides>` | Solo sincronizar IDEs específicos |
+| `--verbose` | Mostrar detalles de cada archivo |
+
+**Archivos generados (6 IDEs):**
 
 | Archivo | IDE |
 |---------|-----|
@@ -202,20 +239,24 @@ Genera archivos de configuración para múltiples IDEs desde un único `PROJECT.
 | `CLAUDE.md` | Claude Desktop/Code |
 | `.github/copilot-instructions.md` | VS Code + GitHub Copilot |
 | `OPENCODE.md` | OpenCode |
+| `.zed/instructions.md` | Zed |
+| `.warp/rules.md` | Warp |
 
 **Flujo de trabajo:**
 ```
 PROJECT.md (fuente única)
      │
-     └──→ sync-ide-rules.sh
+     └──→ npm run sync:ide
               │
               ├──→ .cursorrules
               ├──→ CLAUDE.md
               ├──→ .github/copilot-instructions.md
-              └──→ OPENCODE.md
+              ├──→ OPENCODE.md
+              ├──→ .zed/instructions.md
+              └──→ .warp/rules.md
 ```
 
-**Ventaja:** Editas un solo archivo, todos los IDEs se actualizan.
+**Ventaja:** Editas un solo archivo, todos los IDEs se actualizan automáticamente.
 
 ## 📦 Skills Disponibles
 
