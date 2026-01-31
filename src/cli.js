@@ -82,6 +82,77 @@ program
     console.log('\n✅ Sincronización completada!');
   });
 
+// Comando: sync-ide - Sincronizar PROJECT.md a todos los IDEs
+program
+  .command('sync-ide')
+  .description('Sincronizar PROJECT.md a archivos de configuración de IDEs')
+  .option('-o, --only <ides>', 'Solo sincronizar a estos IDEs (cursor,claude,copilot,opencode,zed,warp)')
+  .option('-c, --check', 'Solo verificar si están sincronizados')
+  .option('-d, --dry-run', 'Mostrar qué haría sin escribir archivos')
+  .option('-v, --verbose', 'Mostrar detalles de cada archivo')
+  .option('-l, --list', 'Listar IDEs soportados')
+  .action(async (options) => {
+    const { syncIDERules, getSupportedIDEs } = await import('../lib/ide-syncer.js');
+
+    if (options.list) {
+      console.log('🖥️  IDEs soportados:\n');
+      getSupportedIDEs().forEach(ide => {
+        console.log(`   • ${ide.name.padEnd(10)} → ${ide.file}`);
+      });
+      return;
+    }
+
+    console.log('🔄 Sincronizando reglas de IDE...\n');
+
+    const results = await syncIDERules(process.cwd(), {
+      only: options.only ? options.only.split(',') : null,
+      dryRun: options.dryRun,
+      check: options.check,
+      verbose: options.verbose
+    });
+
+    if (results.projectCreated) {
+      return;
+    }
+
+    if (options.check) {
+      if (results.outOfSync.length === 0) {
+        console.log('✅ Todos los archivos están sincronizados.');
+      } else {
+        console.log('⚠️  Archivos desincronizados:\n');
+        results.outOfSync.forEach(r => console.log(`   • ${r.file}`));
+        console.log('\nEjecuta "node src/cli.js sync-ide" para sincronizar.');
+        process.exit(1);
+      }
+      return;
+    }
+
+    if (options.dryRun) {
+      console.log('\n📋 Dry run completado (no se escribieron archivos)');
+      return;
+    }
+
+    // Resumen
+    console.log('✅ Sincronización completada!\n');
+
+    if (results.synced.length > 0) {
+      console.log('Archivos actualizados:');
+      results.synced.forEach(r => console.log(`   ✓ ${r.file}`));
+    }
+
+    if (results.skipped.length > 0 && options.verbose) {
+      console.log('\nYa sincronizados:');
+      results.skipped.forEach(r => console.log(`   ⏭️  ${r.file}`));
+    }
+
+    if (results.errors.length > 0) {
+      console.log('\nErrores:');
+      results.errors.forEach(r => console.log(`   ✗ ${r.file}: ${r.error}`));
+    }
+
+    console.log('\n💡 Tip: Edita PROJECT.md y vuelve a ejecutar para actualizar todos.');
+  });
+
 // Comando: skill-sync - Regenerar Skills Reference y Auto-invoke
 program
   .command('skill-sync')

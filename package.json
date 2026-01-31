@@ -11,6 +11,8 @@
     "start": "node src/cli.js",
     "new": "node src/cli.js new",
     "init": "node src/cli.js init",
+    "sync:ide": "node src/cli.js sync-ide",
+    "sync:ide:check": "node src/cli.js sync-ide --check",
     "dev": "node --watch src/cli.js",
     "validate:skills": "node scripts/validate-skills.js",
     "test:setup": "bash scripts/test-setup.sh",

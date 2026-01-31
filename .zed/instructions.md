@@ -1,4 +1,4 @@
-# Instrucciones para OpenCode
+# Zed AI Instructions
 
 # agent-automatizado
 
@@ -63,3 +63,7 @@ npm run validate:skills     # Validar skills
 - Skills usan frontmatter YAML con campos: name, description, scope, allowed_tools, metadata.auto_invoke
 - Detecta automáticamente: Next.js, API, Python, AI Agent, Generic
 
+## Guidelines
+- Follow existing patterns
+- Use conventional commits
+- Keep changes focused
