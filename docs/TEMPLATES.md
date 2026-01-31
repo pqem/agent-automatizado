@@ -89,12 +89,12 @@ Sistema de templates mejorados según tipo de proyecto detectado.
 ---
 
 ### 6. ai-agent.md ⭐ (nuevo)
-**Cuándo se usa:** Sistemas de agentes IA (Moltbot, Claude, etc.)
+**Cuándo se usa:** Sistemas de agentes IA
 
 **Detección automática:**
 - `SOUL.md` + `IDENTITY.md` presentes
 - `skills/` directory
-- `HEARTBEAT.md` (Moltbot específico)
+- `.claude/` directory
 
 **Contenido:**
 - Arquitectura de agente (SOUL, IDENTITY, USER, MEMORY)
@@ -105,7 +105,7 @@ Sistema de templates mejorados según tipo de proyecto detectado.
 - Testing de skills
 - Dog-fooding philosophy
 
-**Skills recomendadas:** agent-skills, memory, architecture
+**Skills recomendadas:** context-recovery, resonant-coding
 
 ---
 

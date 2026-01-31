@@ -118,11 +118,8 @@ Verifica:
 - Campos obligatorios
 - Triggers únicos
 
-**Hook de auto-detección:**
-```bash
-node .moltbot-hook.js "mensaje del usuario"
-# Detecta qué skills invocar
-```
+**Auto-invoke:**
+Las skills se invocan automáticamente basándose en los triggers definidos en su frontmatter.
 
 ## Convenciones
 

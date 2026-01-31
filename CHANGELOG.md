@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `CONTEXT-RECOVERY.md` con estado actual del proyecto
   - Template de referencia
   - 5+ triggers: "perdió memoria", "contexto perdido", "summary unavailable"
-- Documentación completa del proyecto (README mejorado, CHANGELOG, CONTRIBUTING)
+- Documentación completa del proyecto (README mejorado, CHANGELOG)
 
 ## [1.0.0] - 2026-01-30
 
@@ -26,25 +26,17 @@ Primera versión estable con todas las features V1 completas.
 - ✨ CLI completo con comandos `init`, `skill-sync`, `add-skill`
 - 🔍 Detección automática de tipo de proyecto (Next.js, API, Python, AI Agent, Generic)
 - 📦 6 templates específicos según stack detectado
-- 🎯 14 skills pre-built (commits, docs, pr, testing, architecture, etc.)
+- 🎯 2 skills completas + 13 templates de skills
 - 🔄 Sincronización idempotente con markers (`<!-- SKILL-SYNC:START -->`)
 - 🌳 Soporte completo de monorepos (apps/*, packages/*, services/*)
 
-#### Skills System
-- **commits** - Formato convencional de commits
-- **docs** - Documentación y comentarios
-- **pr** - Pull requests consistentes
-- **memory** - Gestión de MEMORY.md
-- **architecture** - System design y patrones
-- **debugging** - Troubleshooting sistemático
-- **planning** - Task breakdown y estimación
-- **testing** - Estrategias de testing (unit/E2E/TDD)
-- **security** - OWASP, auth, secrets management
-- **performance** - Optimización y profiling
-- **deployment** - CI/CD, Docker, Kubernetes
-- **design** - UI/UX y arquitectura de componentes
-- **git-workflow** - Workflow diario con Git/GitHub
-- **agent-skills** - Workflow de agent-automatizado
+#### Skills Completas
+- **context-recovery** - Recuperación post-compactación
+- **resonant-coding** - Metodología Resonant Coding
+
+#### Templates de Skills
+- commits, docs, pr, testing, security, performance, deployment
+- nextjs, react, python, typescript, tailwind, skill-creator
 
 #### Templates
 - `root.md` - Proyecto genérico (default)
@@ -52,14 +44,13 @@ Primera versión estable con todas las features V1 completas.
 - `nextjs.md` - Next.js App Router
 - `api.md` - APIs y backend
 - `python.md` - Proyectos Python
-- `ai-agent.md` - Agentes IA (Moltbot)
+- `ai-agent.md` - Agentes IA
 
 #### Developer Tools
 - 🎨 CLI interactivo para crear skills (`add-skill`)
 - ✅ Validador automático de skills (`validate-skills.js`)
 - 🔗 Setup multi-IDE (Claude, Cursor, Copilot, Gemini, Warp, Codex)
 - 🧪 Tests automatizados para setup script
-- 📚 Hook de detección automática (`.moltbot-hook.js`)
 
 #### Documentation
 - `docs/ADD-SKILL.md` - Guía completa del comando add-skill
@@ -68,7 +59,6 @@ Primera versión estable con todas las features V1 completas.
 - `docs/ROADMAP.md` - Roadmap V2
 - `docs/RELEASE.md` - Guía de releases
 - `scripts/README.md` - Documentación de setup multi-IDE
-- `.moltbot-hook-README.md` - Uso del hook de detección
 
 ### Changed
 - 🔧 Parser YAML mejorado con `js-yaml` (soporta objetos anidados)
@@ -100,7 +90,7 @@ Primera versión estable con todas las features V1 completas.
 ## [0.2.0] - 2026-01-30
 
 ### Added
-- feat(detector): detectar proyectos de agentes IA (Moltbot) (#730aae7)
+- feat(detector): detectar proyectos de agentes IA (#730aae7)
 - feat(skill-sync): generar tabla auto-invoke en formato Prowler (#d5934a5)
 
 ### Fixed

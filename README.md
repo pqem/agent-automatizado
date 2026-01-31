@@ -23,7 +23,7 @@ Los agentes IA necesitan:
 
 - 🔍 **Detección automática** de tipo de proyecto (Next.js, API, Python, AI Agent, etc.)
 - 📦 **Templates específicos** según stack detectado (6 templates disponibles)
-- 🎯 **16 skills pre-built** (commits, testing, security, resonant-coding, context-recovery, etc.)
+- 🎯 **2 skills completas + 13 templates** (resonant-coding, context-recovery + templates para commits, testing, security, etc.)
 - 🔄 **Sincronización idempotente** (skill-sync no genera diffs innecesarios)
 - 🎨 **CLI interactivo** para crear nuevas skills
 - ✅ **Validación automática** de frontmatter y estructura
@@ -109,7 +109,7 @@ node src/cli.js init [directorio]
 - Next.js → `nextjs.md` template + skills web
 - API (Express/Fastify) → `api.md` template + skills backend
 - Python → `python.md` template + skills Python
-- AI Agent (SOUL.md) → `ai-agent.md` template + skills de agentes
+- AI Agent (SOUL.md + IDENTITY.md) → `ai-agent.md` template + skills de agentes
 - Generic → `root.md` template + skills básicas
 
 ### `skill-sync` - Sincronizar bloques regenerables
@@ -215,28 +215,34 @@ Ver documentación completa: [`scripts/README.md`](scripts/README.md)
 
 ## 📦 Skills Disponibles
 
-16 skills pre-built listas para usar:
+### Skills Completas (2)
 
 | Skill | Descripción | Triggers (ejemplos) |
 |-------|-------------|---------------------|
-| **commits** | Formato convencional commits | commitear, git push, mensaje commit |
-| **docs** | Documentación README/comments | README, documentación, docs |
-| **pr** | Pull requests consistentes | PR, pull request, gh pr create |
-| **memory** | Cuándo actualizar MEMORY.md | recordar, anotar, guardar memoria |
-| **architecture** | System design + patterns | arquitectura, escalabilidad, DB design |
-| **debugging** | Troubleshooting sistemático | bug, error, no funciona, crash |
-| **planning** | Task breakdown + estimación | planificar, roadmap, sprint, backlog |
-| **testing** | Unit/E2E/TDD strategies | tests, testing, TDD, jest, pytest |
-| **security** | OWASP + auth + secrets | security, OWASP, auth, XSS, injection |
-| **performance** | Optimization + profiling | performance, cache, slow, profiling |
-| **deployment** | CI/CD + Docker + K8s | deployment, CI/CD, Docker, pipeline |
-| **design** | UI/UX + component architecture | diseño UI/UX, componentes, layout |
-| **git-workflow** | Git/GitHub diario | git, branch, merge, rebase, conflicto |
-| **agent-skills** | Workflow agent-automatizado | skills, skill-sync, auto-invoke |
 | **context-recovery** | Recuperación post-compactación | perdió memoria, contexto perdido, summary unavailable |
 | **resonant-coding** | Metodología completa Resonant Coding | resonant, regla de los 5, baldes limpios, revisar |
 
-**Total:** 70+ triggers automáticos
+### Templates de Skills (13)
+
+Templates listos para copiar y personalizar en tu proyecto:
+
+| Template | Descripción |
+|----------|-------------|
+| **commits** | Formato convencional commits |
+| **docs** | Documentación README/comments |
+| **pr** | Pull requests consistentes |
+| **testing** | Unit/E2E/TDD strategies |
+| **security** | OWASP + auth + secrets |
+| **performance** | Optimization + profiling |
+| **deployment** | CI/CD + Docker + K8s |
+| **nextjs** | Next.js App Router patterns |
+| **react** | React hooks y componentes |
+| **python** | Python best practices |
+| **typescript** | TypeScript patterns |
+| **tailwind** | Tailwind CSS utilities |
+| **skill-creator** | Cómo crear nuevas skills |
+
+**Total:** 20+ triggers automáticos en skills activas
 
 ## 📄 Templates
 
@@ -249,7 +255,7 @@ Ver documentación completa: [`scripts/README.md`](scripts/README.md)
 | **nextjs.md** | Next.js App Router | Server Components, Server Actions, SEO |
 | **api.md** | APIs/Backend | REST, capas, auth, validación, DB |
 | **python.md** | Proyectos Python | Virtual envs, pip, type hints, testing |
-| **ai-agent.md** | Agentes IA (Moltbot) | SOUL/IDENTITY, skills modulares, dog-fooding |
+| **ai-agent.md** | Agentes IA | SOUL/IDENTITY, skills modulares, dog-fooding |
 
 Ver documentación completa: [`docs/TEMPLATES.md`](docs/TEMPLATES.md)
 
@@ -589,13 +595,9 @@ scope: web      # ✅ Debe coincidir con apps/web/ o packages/web/
 ls -la ~/.claude/skills/
 ```
 
-## 🤝 Contribuir
-
-Contribuciones bienvenidas! Ver [`CONTRIBUTING.md`](CONTRIBUTING.md) *(pendiente)*.
-
 ## 📝 Changelog
 
-Ver [`CHANGELOG.md`](CHANGELOG.md) *(pendiente)*.
+Ver [`CHANGELOG.md`](CHANGELOG.md).
 
 ## 📜 Licencia
 

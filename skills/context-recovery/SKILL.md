@@ -165,14 +165,14 @@ El script extrae automáticamente:
 await exec('node scripts/update-context-recovery.cjs')
 ```
 
-## Integración con Moltbot
+## Integración con Agentes IA
 
 ### En prompt del sistema
 
 ```markdown
 ## Context Recovery
 
-Si detectás compactación (mensaje "Summary unavailable"), 
+Si detectás compactación (mensaje "Summary unavailable"),
 ejecutar INMEDIATAMENTE antes de responder:
 
 1. read('CONTEXT-RECOVERY.md')
@@ -181,23 +181,7 @@ ejecutar INMEDIATAMENTE antes de responder:
 4. Resumir estado al usuario
 ```
 
-### Hook de inicio de sesión
-
-Agregar a `.moltbot-hook.js` o equivalente:
-
-```javascript
-// Detectar compactación
-if (systemMessages.some(m => m.includes('Summary unavailable'))) {
-  // Auto-trigger context recovery
-  return {
-    action: 'auto-invoke',
-    skill: 'context-recovery',
-    reason: 'Compactación detectada'
-  }
-}
-```
-
-## Ejemplo Real: Nuestra Situación
+## Ejemplo Real
 
 ### Lo que pasó hoy
 
@@ -252,7 +236,6 @@ Para agregar esta feature al proyecto:
 - [x] Crear template `templates/CONTEXT-RECOVERY.template.md`
 - [x] Agregar sección en AGENTS.md (vía skill-sync)
 - [x] Generar primer CONTEXT-RECOVERY.md
-- [ ] Actualizar `.moltbot-integration.md` con hook de compactación
 - [ ] Documentar en README (sección Recovery)
 - [ ] Testear con compactación simulada
 
