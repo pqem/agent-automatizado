@@ -1,0 +1,52 @@
+# Reglas para Cursor AI
+
+## Proyecto
+Este es agent-automatizado - Framework CLI para generar contratos de agentes IA y skills modulares.
+
+## Stack
+- Node.js 18+
+- ES Modules (type: module)
+- Commander.js (CLI)
+- Ink + React (UI interactiva)
+- js-yaml (parsing)
+
+## Reglas de código
+
+### General
+- Código en español (comentarios, commits)
+- ES Modules: usar `import/export`, no `require`
+- Async/await preferido sobre callbacks
+- No agregar dependencias sin justificación
+
+### Archivos
+- `src/` - CLI y componentes UI
+- `lib/` - Lógica de negocio
+- `scripts/` - Scripts auxiliares (.cjs para CommonJS)
+- `templates/` - Templates de AGENTS.md y skills
+- `skills/` - Skills activas del proyecto
+
+### Commits
+Formato convencional en español:
+- `feat(scope): descripción`
+- `fix(scope): descripción`
+- `refactor(scope): descripción`
+- `docs(scope): descripción`
+
+### No hacer
+- No crear archivos README innecesarios
+- No agregar comentarios obvios
+- No usar console.log para debug (usar proceso estructurado)
+- No modificar package.json sin razón
+
+## Skills disponibles
+- `context-recovery` - Recuperación post-compactación de memoria
+- `resonant-coding` - Metodología Resonant Coding (Regla de los 5)
+
+## Comandos útiles
+```bash
+node src/cli.js init          # Inicializar proyecto
+node src/cli.js skill-sync    # Sincronizar skills
+node src/cli.js add-skill     # Crear nueva skill
+node src/cli.js detect        # Detectar tipo de proyecto
+npm run validate:skills       # Validar skills
+```
