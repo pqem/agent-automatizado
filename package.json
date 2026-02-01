@@ -8,6 +8,9 @@
     "agent-auto": "./src/cli.js"
   },
   "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "start": "node src/cli.js",
     "new": "node src/cli.js new",
     "init": "node src/cli.js init",
@@ -45,5 +48,9 @@
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.0",
+    "@vitest/coverage-v8": "^2.1.0"
   }
 }

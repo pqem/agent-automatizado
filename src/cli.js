@@ -15,7 +15,15 @@ const program = new Command();
 program
   .name('agent-auto')
   .description('Sistema automatizado para generar entornos de trabajo con agentes IA, skills y MCP')
-  .version('1.0.0');
+  .version('1.0.0')
+  .hook('preAction', async (thisCommand) => {
+    // Set logger level based on verbose flag
+    const opts = thisCommand.opts();
+    if (opts.verbose) {
+      const { logger } = await import('../lib/logger.js');
+      logger.setLevel('debug');
+    }
+  });
 
 // Comando: new - Wizard interactivo para crear proyecto desde cero
 program
@@ -157,11 +165,26 @@ program
 program
   .command('skill-sync')
   .description('Regenerar bloques de skills en AGENTS.md')
-  .action(async () => {
+  .option('-c, --check', 'Verificar si están sincronizados (falla si hay drift)')
+  .option('-d, --dry-run', 'Mostrar qué haría sin escribir archivos')
+  .option('-v, --verbose', 'Mostrar detalles de cada archivo')
+  .action(async (options) => {
     const { syncSkills } = await import('../lib/skill-syncer.js');
 
-    console.log('🧩 Regenerando skills en AGENTS.md...\n');
-    await syncSkills(process.cwd());
+    if (!options.check && !options.dryRun) {
+      console.log('🧩 Regenerando skills en AGENTS.md...\n');
+    }
+
+    const results = await syncSkills(process.cwd(), {
+      check: options.check,
+      dryRun: options.dryRun,
+      verbose: options.verbose
+    });
+
+    // Exit with error code if check mode found issues
+    if (options.check && results.outOfSync.length > 0) {
+      process.exit(1);
+    }
   });
 
 // Comando: add-skill - Agregar skill al proyecto
