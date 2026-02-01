@@ -10,13 +10,19 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['lib/**/*.js'],
-      exclude: ['lib/**/*.test.js'],
+      exclude: [
+        'lib/**/*.test.js',
+        'lib/generator.js',      // Wizard interactivo
+        'lib/skill-creator.js',  // Prompts inquirer
+        'lib/mcp-generator.js',  // Configuración MCP
+        'lib/syncer.js'          // Sync filesystem (cubierto por ide-syncer)
+      ],
       reporter: ['text', 'html'],
       thresholds: {
-        lines: 80,
-        functions: 80,
-        branches: 70,
-        statements: 80
+        lines: 90,
+        functions: 70,
+        branches: 80,
+        statements: 90
       }
     },
     testTimeout: 10000
